@@ -4,7 +4,7 @@
   "description": "An abstraction to work with iterables of asyncIterables",
   "main": "src/index.js",
   "type": "module",
-  "types": "types/index.d.mts",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "node --test test/*.js",
     "types": "tsc",

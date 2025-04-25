@@ -1,12 +1,11 @@
 # batch-iterable
 
-`batch-iterable` is a JavaScript library designed to provide utility functions for working with async iterables of iterables. It offers a collection of methods to manipulate, transform, and process data in batch or stream-like workflows. This library is particularly useful for handling large datasets or streams of data efficiently.
+`batch-iterable` is a JavaScript library designed to provide utility functions for working with "async iterables of iterables". It offers a collection of methods to manipulate, transform, and process data in batch or stream-like workflows. This library is particularly useful for handling large datasets or streams of data efficiently.
 
 ## Why
 This library is designed to support the transformation of data that are progressively parsed from a stream.
 The stream, because of its asynchronous nature can be abstracted as AsyncIterable. The parsing produces instead a synchronous iterable and it would be very inefficient to use AsyncIterable for it.
-This necessity arised while implementing my own JSON parsing library JSONaut.
-
+This necessity arose while implementing my own JSON parsing library JSONaut (formerly called json-key-value).
 
 ## Features
 
@@ -25,24 +24,59 @@ npm install batch-iterable
 
 ## Usage
 
-Here is an example of how to use `batch-iterable`:
+Here are a few examples of how to use `batch-iterable`:
 
 ```javascript
 import { map, filter, reduce, iterableToBatchIterable } from 'batch-iterable';
 
 const data = iterableToBatchIterable([1, 2, 3, 4, 5]);
+const doubled = map(data, x => x * 2) // [2, 4, 6, 8, 10]
+const greaterThan5 = filter(doubled, x => x > 5) // [6, 8, 10]
+const total = reduce(greaterThan5, (acc, val) => acc + val, 0) // 24
+console.log(total); // Output: 24
+```
 
-// Example: Transform and filter data
-const result = reduce(
-  filter(
-    map(data, x => x * 2),
-    x => x > 5
-  ),
-  (acc, val) => acc + val,
-  0
-);
+This is an example on how generate and consume a batchIterable:
 
-console.log(result); // Output: 14
+```javascript
+import fs from "fs"
+import { filter, forEach } from 'batch-iterable';
+
+// This returns an iterable
+function * chunkToByte(chunk) {
+  for (const byte of chunk) {
+    yield String.fromCharCode(character)
+  }
+}
+
+// This returns an AsyncIterable of Iterables (batchIterable)
+async function * readASCIIFile(filename) {
+  const readStream = fs.createReadStream(filename)
+
+  for await (const chunk of readStream) {
+    yield chunkToByte(chunk)
+    // Important!
+    // it is not "yield *" otherwise it would have converted the iterable in an asyncIterable
+  }
+  readStream.destroy()
+}
+
+const characters = readASCIIFile("README.md")
+const noSpace = filter((char) => char !== ' ')
+
+async () => {
+  for await (const characters of noSpace) {
+    for (const character of characters) {
+      console.log(character)
+    }
+  }
+}
+
+// or
+
+forEach(noSpace, (character) => {
+  console.log(character)
+})
 ```
 
 ## API Reference
@@ -82,6 +116,3 @@ Checks if at least one element in an batchIterable satisfies a condition.
 
 ### take
 Takes the first `n` elements of an batchIterable.
-
-### types
-Provides type definitions and utilities for working with iterables and async iterables.

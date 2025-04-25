@@ -4,5 +4,5 @@
  * @param {number} count
  * @returns {import("./types").BatchIterable<T>}
  */
-export function take<T>(iterable: import("./types").BatchIterable<T>, count: number): import("./types").BatchIterable<T>;
+export default function take<T>(iterable: import("./types").BatchIterable<T>, count: number): import("./types").BatchIterable<T>;
 //# sourceMappingURL=take.d.ts.map

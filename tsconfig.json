@@ -1,6 +1,6 @@
 {
   // Change this to match your project
-  "include": ["./src/**/*.js"],
+  "include": ["./index.js"],
   "compilerOptions": {
     "outDir": "types",
     "lib": ["es2020"],
