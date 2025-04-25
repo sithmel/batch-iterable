@@ -1,12 +1,31 @@
 {
   "name": "batch-iterable",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "An abstraction to work with iterables of asyncIterables",
+  "main": "src/index.js",
+  "type": "module",
+  "types": "types/index.d.mts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/*.js",
+    "types": "tsc",
+    "format": "prettier --ignore-unknown --write ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": ["streams", "async", "iterables", "asyncIterables"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sithmel/batch-iterable.git"
+  },
+  "author": "Maurizio Lupo <maurizio.lupo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sithmel/batch-iterable/issues"
+  },
+  "homepage": "https://github.com/sithmel/batch-iterable#readme",
+  "prettier": {
+    "semi": false
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
 }
