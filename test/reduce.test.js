@@ -10,3 +10,18 @@ test('reduce aggregates elements using a reducer function', async () => {
 
   assert.strictEqual(result, 15, 'Reduced result should match expected output');
 });
+
+test("reduce uses index in callback to accumulate values", async () => {
+  const array = iterableToBatchIterable([1, 2, 3]);
+  const result = await reduce(
+    array,
+    (acc, value, index) => acc + value * index,
+    0
+  );
+
+  assert.strictEqual(
+    result,
+    8, // 0*1 + 1*2 + 2*3
+    "Reduced value based on index should match expected output"
+  );
+});

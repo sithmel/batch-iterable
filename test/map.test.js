@@ -10,3 +10,14 @@ test('map applies a function to each element', async () => {
 
   assert.deepStrictEqual(result, [2, 4, 6, 8, 10], 'Mapped elements should match expected output');
 });
+
+test("map uses index in callback to transform elements", async () => {
+  const array = iterableToBatchIterable(["a", "b", "c"]);
+  const result = await toArray(map(array, (value, index) => `${value}${index}`));
+
+  assert.deepStrictEqual(
+    result,
+    ["a0", "b1", "c2"],
+    "Mapped elements based on index should match expected output"
+  );
+});

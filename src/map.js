@@ -14,7 +14,7 @@ export default async function* map(iterable, func) {
    */
   function* syncMap(iterable) {
     for (const item of iterable) {
-      yield func(item, index)
+      yield func(item, index ++)
     }
   }
 
