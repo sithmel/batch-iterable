@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import find from '../src/find.js';
+import { find, iterableToBatchIterable } from '../index.js';
 
-test('find locates the first element satisfying a condition', () => {
-  const array = [1, 2, 3, 4, 5];
+test('find returns the first element that satisfies a condition', async () => {
+  const array = iterableToBatchIterable([1, 2, 3, 4, 5]);
   const isEven = (x) => x % 2 === 0;
 
-  const result = find(array, isEven);
+  const result = await find(array, isEven);
 
-  assert.strictEqual(result, 2, 'Found element should match expected output');
+  assert.strictEqual(result, 2, 'First element satisfying the condition should be returned');
 });

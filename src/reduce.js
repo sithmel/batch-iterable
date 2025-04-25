@@ -6,7 +6,7 @@
  * @param {R} initialValue
  * @returns {Promise<R>}
  */
-export async function reduce(iterable, reducer, initialValue) {
+export default async function reduce(iterable, reducer, initialValue) {
   let index = 0;
   let accumulator = initialValue;
 

@@ -4,7 +4,7 @@
  * @param {(item: T, index: number) => boolean} predicate
  * @returns {Promise<boolean>}
  */
-export async function some(iterable, predicate) {
+export default async function some(iterable, predicate) {
   let index = 0
   for await (const batch of iterable) {
     for (const item of batch) {

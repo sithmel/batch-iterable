@@ -1,18 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import asyncIterableToBatchIterable from '../src/asyncIterableToBatchIterable.js';
+import { asyncIterableToBatchIterable, toArray } from '../index.js';
 
-test('asyncIterableToBatchIterable batches async iterable correctly', async () => {
-  const asyncIterable = async function* () {
-    yield* [1, 2, 3, 4, 5];
-  };
-
-  const batchSize = 2;
-  const result = [];
-
-  for await (const batch of asyncIterableToBatchIterable(asyncIterable(), batchSize)) {
-    result.push(batch);
+test('asyncIterableToBatchIterable converts async iterable to batch iterable', async () => {
+  async function* asyncGen() {
+    yield 1;
+    yield 2;
+    yield 3;
   }
 
-  assert.deepStrictEqual(result, [[1, 2], [3, 4], [5]], 'Batches should match expected output');
+  const batchIterable = asyncIterableToBatchIterable(asyncGen());
+  const result = await toArray(batchIterable);
+
+  assert.deepStrictEqual(result, [1, 2, 3], 'Converted elements should match expected output');
 });

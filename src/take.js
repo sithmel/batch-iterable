@@ -4,7 +4,7 @@
  * @param {number} count
  * @returns {import("./types").BatchIterable<T>}
  */
-export async function* take(iterable, count) {
+export default async function* take(iterable, count) {
   /**
    * @template T
    * @param {Iterable<T>} batch

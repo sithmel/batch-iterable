@@ -1,12 +1,12 @@
+import test from 'node:test';
 import assert from 'node:assert';
-import flatMap from '../src/flatMap.js';
+import { flatMap, iterableToBatchIterable, toArray } from '../index.js';
 
-(() => {
-  const array = [1, 2, 3];
+test('flatMap maps and flattens elements', async () => {
+  const array = iterableToBatchIterable([1, 2, 3]);
   const duplicate = (x) => [x, x];
 
-  const result = [...flatMap(array, duplicate)];
+  const result = await toArray(flatMap(array, duplicate));
 
-  assert.deepStrictEqual(result, [1, 1, 2, 2, 3, 3], 'Flat-mapped elements should match expected output');
-  console.log('flatMap test passed');
-})();
+  assert.deepStrictEqual(result, [1, 1, 2, 2, 3, 3], 'Mapped and flattened elements should match expected output');
+});

@@ -4,7 +4,7 @@
  * @param {(item: T, index: number) => boolean} predicate
  * @returns {Promise<T| undefined>}
  */
-export async function find(iterable, predicate) {
+export default async function find(iterable, predicate) {
     let index = 0;
     for await (const batch of iterable) {
       for (const item of batch) {
