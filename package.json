@@ -1,6 +1,6 @@
 {
   "name": "batch-iterable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An abstraction to work with iterables of asyncIterables",
   "main": "src/index.js",
   "type": "module",
@@ -10,7 +10,12 @@
     "types": "tsc",
     "format": "prettier --ignore-unknown --write ."
   },
-  "keywords": ["streams", "async", "iterables", "asyncIterables"],
+  "keywords": [
+    "streams",
+    "async",
+    "iterables",
+    "asyncIterables"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sithmel/batch-iterable.git"
