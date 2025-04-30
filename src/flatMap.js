@@ -2,9 +2,9 @@
 
 /**
  * @template T, R
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {(item: T, index: number) => Iterable<R> | R} func
- * @returns {import("./types").BatchIterable<R>}
+ * @returns {AsyncIterable<Iterable<R>>}
  */
 export default async function* flatMap(iterable, func) {
   let index = 0

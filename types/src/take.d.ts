@@ -1,8 +1,8 @@
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {number} count
- * @returns {import("./types").BatchIterable<T>}
+ * @returns {AsyncIterable<Iterable<T>>}
  */
-export default function take<T>(iterable: import("./types").BatchIterable<T>, count: number): import("./types").BatchIterable<T>;
+export default function take<T>(iterable: AsyncIterable<Iterable<T>>, count: number): AsyncIterable<Iterable<T>>;
 //# sourceMappingURL=take.d.ts.map

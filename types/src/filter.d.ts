@@ -1,8 +1,8 @@
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {(item: T, index: number) => boolean} func
- * @returns {import("./types").BatchIterable<T>}
+ * @returns {AsyncIterable<Iterable<T>>}
  */
-export default function filter<T>(iterable: import("./types").BatchIterable<T>, func: (item: T, index: number) => boolean): import("./types").BatchIterable<T>;
+export default function filter<T>(iterable: AsyncIterable<Iterable<T>>, func: (item: T, index: number) => boolean): AsyncIterable<Iterable<T>>;
 //# sourceMappingURL=filter.d.ts.map

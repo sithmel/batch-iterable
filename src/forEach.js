@@ -1,7 +1,7 @@
 // @ts-check
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {(item: T, index: number) => void} callback
  * @returns {Promise<void>}
  */

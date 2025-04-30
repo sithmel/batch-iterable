@@ -1,25 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { take, iterableToBatchIterable, toArray } from '../index.js';
+import { BatchIterable } from "../index.js"
 
 test('take retrieves a specified number of elements', async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5]);
+  const array = new BatchIterable([1, 2, 3, 4, 5]);
 
-  const result = await toArray(take(array, 3));
+  const result = await array.take(3).toArray();
 
   assert.deepStrictEqual(result, [1, 2, 3], 'Taken elements should match expected output');
 });
 
 test('take retrieves the first 0 elements', async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5]);
-  const result = await toArray(take(array, 0));
+  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const result = await array.take(0).toArray();
 
   assert.deepStrictEqual(result, [], 'Taken elements should match expected output');
 });
 
 test('take retrieves more elements than available', async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5]);
-  const result = await toArray(take(array, 10));
+  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const result = await array.take(10).toArray();
 
   assert.deepStrictEqual(result, [1, 2, 3, 4, 5], 'Taken elements should match expected output');
 });

@@ -1,9 +1,9 @@
 /**
- * @template T, R
- * @param {import("./types").BatchIterable<T>} iterable
- * @param {(accumulator: R, item: T, index: number) => R} reducer
- * @param {R} initialValue
- * @returns {Promise<R>}
+ * @template T, U
+ * @param {AsyncIterable<Iterable<T>>} iterable
+ * @param {(accumulator: U, currentValue: T, currentIndex: number) => U} reducer
+ * @param {U} [initialValue] initial value.
+ * @returns {Promise<U>}
  */
-export default function reduce<T, R>(iterable: import("./types").BatchIterable<T>, reducer: (accumulator: R, item: T, index: number) => R, initialValue: R): Promise<R>;
+export default function reduce<T, U>(iterable: AsyncIterable<Iterable<T>>, reducer: (accumulator: U, currentValue: T, currentIndex: number) => U, initialValue?: U): Promise<U>;
 //# sourceMappingURL=reduce.d.ts.map

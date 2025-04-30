@@ -1,8 +1,8 @@
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {number} count
- * @returns {import("./types").BatchIterable<T>}
+ * @returns {AsyncIterable<Iterable<T>>}
  */
 export default async function* drop(iterable, count) {
   /**

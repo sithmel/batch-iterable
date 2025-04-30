@@ -1,6 +1,6 @@
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @returns {Promise<Array<T>>}
  */
 export default async function toArray(iterable) {

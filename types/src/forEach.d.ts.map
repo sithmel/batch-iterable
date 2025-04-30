@@ -1,1 +1,1 @@
-{"version":3,"file":"forEach.d.ts","sourceRoot":"","sources":["../../src/forEach.js"],"names":[],"mappings":"AACA;;;;;GAKG;AACH,gCALa,CAAC,YACH,OAAO,SAAS,EAAE,aAAa,CAAC,CAAC,CAAC,YAClC,CAAC,IAAI,EAAE,CAAC,EAAE,KAAK,EAAE,MAAM,KAAK,IAAI,GAC9B,OAAO,CAAC,IAAI,CAAC,CASzB"}
+{"version":3,"file":"forEach.d.ts","sourceRoot":"","sources":["../../src/forEach.js"],"names":[],"mappings":"AACA;;;;;GAKG;AACH,gCALa,CAAC,YACH,aAAa,CAAC,QAAQ,CAAC,CAAC,CAAC,CAAC,YAC1B,CAAC,IAAI,EAAE,CAAC,EAAE,KAAK,EAAE,MAAM,KAAK,IAAI,GAC9B,OAAO,CAAC,IAAI,CAAC,CASzB"}

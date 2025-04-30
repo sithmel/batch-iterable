@@ -2,9 +2,9 @@
 
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {(item: T, index: number) => boolean} func
- * @returns {import("./types").BatchIterable<T>}
+ * @returns {AsyncIterable<Iterable<T>>}
  */
 export default async function* filter(iterable, func) {
   let index = 0

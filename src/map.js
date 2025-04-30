@@ -1,16 +1,16 @@
 // @ts-check
 
 /**
- * @template T
- * @param {import("./types").BatchIterable<T>} iterable
- * @param {(item: T, index: number) => T} func
- * @returns {import("./types").BatchIterable<T>}
+ * @template T,R
+ * @param {AsyncIterable<Iterable<T>>} iterable
+ * @param {(item: T, index: number) => R} func
+ * @returns {AsyncIterable<Iterable<R>>}
  */
 export default async function* map(iterable, func) {
   let index = 0
   /**
    * @param {Iterable<T>} iterable
-   * @returns {Iterable<T>}
+   * @returns {Iterable<R>}
    */
   function* syncMap(iterable) {
     for (const item of iterable) {

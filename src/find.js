@@ -1,6 +1,6 @@
 /**
  * @template T
- * @param {import("./types").BatchIterable<T>} iterable
+ * @param {AsyncIterable<Iterable<T>>} iterable
  * @param {(item: T, index: number) => boolean} predicate
  * @returns {Promise<T| undefined>}
  */

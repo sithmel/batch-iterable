@@ -1,10 +1,10 @@
 import test from "node:test"
 import assert from "node:assert"
-import { drop, iterableToBatchIterable, toArray } from "../index.js"
+import { BatchIterable } from "../index.js"
 
 test("drop skips the first n elements", async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5])
-  const result = await toArray(drop(array, 2))
+  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const result = await array.drop(2).toArray()
 
   assert.deepStrictEqual(
     result,
@@ -14,8 +14,8 @@ test("drop skips the first n elements", async () => {
 })
 
 test("drop skips the first 0 elements", async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5])
-  const result = await toArray(drop(array, 0))
+  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const result = await array.drop(0).toArray()
 
   assert.deepStrictEqual(
     result,
@@ -25,12 +25,8 @@ test("drop skips the first 0 elements", async () => {
 })
 
 test("drop skips the first many elements", async () => {
-  const array = iterableToBatchIterable([1, 2, 3, 4, 5])
-  const result = await toArray(drop(array, 10))
+  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const result = await array.drop(10).toArray()
 
-  assert.deepStrictEqual(
-    result,
-    [],
-    "Dropped all elements",
-  )
+  assert.deepStrictEqual(result, [], "Dropped all elements")
 })
