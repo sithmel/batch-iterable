@@ -1,6 +1,6 @@
 {
   "name": "batch-iterable",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An abstraction to work with iterables of asyncIterables",
   "main": "src/index.js",
   "type": "module",
