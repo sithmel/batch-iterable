@@ -14,21 +14,13 @@ import flatMap from "./flatMap.js"
 
 /**
  * @template T
- * @param {Iterable<T>} iterable
+ * 
+ * @param {AsyncIterable<Iterable<T>> | Iterable<Iterable<T>>} iterable
  * @returns {AsyncIterable<Iterable<T>>}
  */
-async function* iterableToAsyncIterableOfIterables(iterable) {
-  yield iterable
-}
-
-/**
- * @template T
- * @param {AsyncIterable<T>} asyncIterable
- * @returns {AsyncIterable<Iterable<T>>}
- */
-async function* asyncIterableToAsyncIterableOfIterables(asyncIterable) {
-  for await (const item of asyncIterable) {
-    yield [item]
+async function * toAsyncIterable(iterable) {
+  for await (const item of iterable) {
+    yield item
   }
 }
 
@@ -38,19 +30,19 @@ async function* asyncIterableToAsyncIterableOfIterables(asyncIterable) {
 class BatchIterable {
 
   /**
-   * @param {AsyncIterable<T> | Iterable<T> | BatchIterable<T>} [_iterable]
+   * @param {AsyncIterable<Iterable<T>> | Iterable<Iterable<T>> | BatchIterable<T>} [_iterable]
    */
   constructor(_iterable) {
-    /** @type {AsyncIterable<T> | Iterable<T> | BatchIterable<T>}*/
+    /** @type {AsyncIterable<Iterable<T>> | Iterable<Iterable<T>> | BatchIterable<T>}*/
     _iterable = _iterable ?? []
     if (_iterable instanceof BatchIterable) {
       return _iterable
-    } else if (Symbol.asyncIterator in _iterable) {
-      /** @type  AsyncIterable<Iterable<T>> */
-      this.iterable = asyncIterableToAsyncIterableOfIterables(_iterable)
     } else if (Symbol.iterator in _iterable) {
-      /** @type  AsyncIterable<Iterable<T>> */
-      this.iterable = iterableToAsyncIterableOfIterables(_iterable)
+      /** @type  {AsyncIterable<Iterable<T>>}  */
+      this.iterable = toAsyncIterable(_iterable)
+    } else if (Symbol.asyncIterator in _iterable) {
+      /** @type  {AsyncIterable<Iterable<T>>}  */
+      this.iterable = _iterable
     } else throw new TypeError("Invalid iterable type")
   }
 
@@ -60,53 +52,53 @@ class BatchIterable {
 
   /**
    * @param {number} n
-   * @returns {BatchIterable<T>}
+   * @returns {this}
    */
   take(n) {
-    const b = new BatchIterable()
-    b.iterable = take(this.iterable, n)
-    return b
+    this.iterable = take(this.iterable, n)
+    return this
   }
+
   /**
    * @param {number} n
-   * @returns {BatchIterable<T>}
+   * @returns {this}
    */
   drop(n) {
-    const b = new BatchIterable()
-    b.iterable = drop(this.iterable, n)
-    return b
+    this.iterable = drop(this.iterable, n)
+    return this
   }
+
   /**
    * @param {(item: T, index: number) => boolean} func
-   * @returns {BatchIterable<T>}
+   * @returns {this}
    */
   filter(func) {
-    const b = new BatchIterable()
-    b.iterable = filter(this.iterable, func)
-    return b
+    this.iterable = filter(this.iterable, func)
+    return this
   }
+
   /**
    * @param {(item: T, index: number) => T} func
-   * @returns {BatchIterable<T>}
+   * @returns {this}
    */
   map(func) {
-    const b = new BatchIterable()
-    b.iterable = map(this.iterable, func)
-    return b
+    this.iterable = map(this.iterable, func)
+    return this
   }
   /**
    * @param {(item: T, index: number) => Iterable<T> | T} func
-   * @returns {BatchIterable<T>}
+   * @returns {this}
    */
+
   flatMap(func) {
-    const b = new BatchIterable()
-    b.iterable = flatMap(this.iterable, func)
-    return b
+    this.iterable = flatMap(this.iterable, func)
+    return this
   }
   /**
    * @param {(item: T, index: number) => void} func
    * @returns {Promise<void>}
    */
+
   forEach(func) {
     return forEach(this.iterable, func)
   }
@@ -115,9 +107,11 @@ class BatchIterable {
    * @param {T} [initialValue]
    * @returns {Promise<T>}
    */
+
   reduce(func, initialValue) {
     return reduce(this.iterable, func, initialValue)
   }
+
   /**
    * @param {(item: T, index: number) => boolean} predicate
    * @returns {Promise<boolean>}
@@ -125,6 +119,7 @@ class BatchIterable {
   every(predicate) {
     return every(this.iterable, predicate)
   }
+
   /**
    * @param {(item: T, index: number) => boolean} predicate
    * @returns {Promise<boolean>}
@@ -132,6 +127,7 @@ class BatchIterable {
   some(predicate) {
     return some(this.iterable, predicate)
   }
+
   /**
    * @param {(item: T, index: number) => boolean} predicate
    * @returns {Promise<T | undefined>}
@@ -145,6 +141,15 @@ class BatchIterable {
    */
   toArray() {
     return toArray(this.iterable)
+  }
+
+  /**
+   * @returns {AsyncIterable<T>}
+   */
+  async *toAsyncIterable () {
+    for await (const batch of this.iterable) {
+      yield * batch
+    }
   }
 }
 

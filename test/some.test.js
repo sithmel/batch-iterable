@@ -3,7 +3,7 @@ import assert from "node:assert"
 import { BatchIterable } from "../index.js"
 
 test("some checks if any element satisfies a predicate", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2], [3, 4, 5]])
   const isGreaterThanThree = (x) => x > 3
 
   const result = await array.some(isGreaterThanThree)

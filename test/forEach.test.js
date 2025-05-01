@@ -3,7 +3,7 @@ import assert from "node:assert"
 import { BatchIterable } from "../index.js"
 
 test("forEach applies a callback to each element", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2], [3, 4, 5]])
   const result = []
 
   await array.forEach((item) => result.push(item * 2))
@@ -16,7 +16,7 @@ test("forEach applies a callback to each element", async () => {
 })
 
 test("forEach uses index in callback to iterate over elements", async () => {
-  const array = new BatchIterable(["a", "b", "c"])
+  const array = new BatchIterable([["a", "b"], ["c"]])
   const result = []
   await array.forEach((value, index) => result.push(`${value}${index}`))
 

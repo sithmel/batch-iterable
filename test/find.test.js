@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { BatchIterable } from "../index.js"
 
 test('find returns the first element that satisfies a condition', async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const array = new BatchIterable([[1, 2], [3, 4, 5]]);
   const isEven = (x) => x % 2 === 0;
 
   const result = await array.find(isEven);
@@ -12,7 +12,7 @@ test('find returns the first element that satisfies a condition', async () => {
 });
 
 test('find returns undefined when no element satisfies the condition', async () => {
-  const array = new BatchIterable([1, 3, 5, 7]);
+  const array = new BatchIterable([[1, 3], [5], [7]]);
   const isEven = (x) => x % 2 === 0;
 
   const result = await array.find(isEven);

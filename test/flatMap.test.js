@@ -3,7 +3,7 @@ import assert from "node:assert"
 import { BatchIterable } from "../index.js"
 
 test("flatMap maps and flattens elements", async () => {
-  const array = new BatchIterable([1, 2, 3])
+  const array = new BatchIterable([[1, 2, 3]])
   const duplicate = (x) => [x, x]
 
   const result = await array.flatMap(duplicate).toArray()
@@ -29,10 +29,10 @@ test("flatMap with empty input", async () => {
 })
 
 test("flatMap with nested arrays", async () => {
-  const array = new BatchIterable([
+  const array = new BatchIterable([[
     [1, 2],
     [3, 4],
-  ])
+  ]])
   const flatten = (x) => x
 
   const result = await array.flatMap(flatten).toArray()
@@ -45,7 +45,7 @@ test("flatMap with nested arrays", async () => {
 })
 
 test("flatMap with transformation", async () => {
-  const array = new BatchIterable([1, 2, 3])
+  const array = new BatchIterable([[1], [2, 3]])
   const transform = (x) => [x * 2]
 
   const result = await array.flatMap(transform).toArray()
@@ -58,7 +58,7 @@ test("flatMap with transformation", async () => {
 })
 
 test("flatMap with scalar output", async () => {
-  const array = new BatchIterable([1, 2, 3])
+  const array = new BatchIterable([[1, 2, 3]])
   const toScalar = (x) => x * 2
 
   const result = await array.flatMap(toScalar).toArray()
@@ -71,7 +71,7 @@ test("flatMap with scalar output", async () => {
 })
 
 test("flatMap throws an exception if the function returns a string", async () => {
-  const array = new BatchIterable([1, 2, 3])
+  const array = new BatchIterable([[1], [2, 3]])
   const toString = (x) => `${x}`
 
   await assert.rejects(
@@ -84,7 +84,7 @@ test("flatMap throws an exception if the function returns a string", async () =>
 })
 
 test("flatMap uses index in callback to flatten and transform elements", async () => {
-  const array = new BatchIterable(["a", "b", "c"])
+  const array = new BatchIterable([["a", "b", "c"]])
   const result = await array.flatMap((value, index) => [value, index]).toArray()
 
   assert.deepStrictEqual(

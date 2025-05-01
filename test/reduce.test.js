@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { BatchIterable } from "../index.js"
 
 test('reduce aggregates elements using a reducer function', async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const array = new BatchIterable([[1], [2, 3], [4, 5]]);
   const sum = (acc, x) => acc + x;
 
   const result = await array.reduce(sum, 0);
@@ -12,7 +12,7 @@ test('reduce aggregates elements using a reducer function', async () => {
 });
 
 test("reduce uses index in callback to accumulate values", async () => {
-  const array = new BatchIterable([1, 2, 3]);
+  const array = new BatchIterable([[1], [2, 3]]);
   const result = await array.reduce(
     (acc, value, index) => acc + value * index,
     0
@@ -26,7 +26,7 @@ test("reduce uses index in callback to accumulate values", async () => {
 });
 
 test('reduce without initialValue aggregates elements using a reducer function', async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const array = new BatchIterable([[1, 2, 3, 4], [5]]);
   const sum = (acc, x) => acc + x;
 
   const result = await array.reduce(sum);

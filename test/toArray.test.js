@@ -3,7 +3,7 @@ import assert from 'node:assert';
 import { BatchIterable } from "../index.js"
 
 test('toArray converts a batch iterable to an array', async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5]);
+  const array = new BatchIterable([[1], [2], [3, 4, 5]]);
 
   const result = await array.toArray();
 

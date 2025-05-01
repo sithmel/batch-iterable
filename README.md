@@ -27,20 +27,19 @@ npm install batch-iterable
 Here are a few examples of how to use `batch-iterable`:
 
 ```javascript
-import { map, filter, reduce, iterableToBatchIterable } from 'batch-iterable';
+import BatchIterable from 'batch-iterable';
 
-const data = iterableToBatchIterable([1, 2, 3, 4, 5]);
-const doubled = map(data, x => x * 2) // [2, 4, 6, 8, 10]
-const greaterThan5 = filter(doubled, x => x > 5) // [6, 8, 10]
-const total = reduce(greaterThan5, (acc, val) => acc + val, 0) // 24
-console.log(total); // Output: 24
+const total = new BatchIterable([[1, 2], [3, 4, 5]]);
+  .map(x => x * 2) // [2, 4, 6, 8, 10]
+  .filter(x => x > 5) // [6, 8, 10]
+  .reduce((acc, val) => acc + val, 0) // 24
 ```
 
 This is an example on how generate and consume a batchIterable:
 
 ```javascript
 import fs from "fs"
-import { filter, forEach } from 'batch-iterable';
+import BatchIterable from 'batch-iterable';
 
 // This returns an iterable
 function * chunkToByte(chunk) {
@@ -62,10 +61,11 @@ async function * readASCIIFile(filename) {
 }
 
 const characters = readASCIIFile("README.md")
-const noSpace = filter((char) => char !== ' ')
+const characters_without_spaces = new BatchIterable(characters)
+  .filter((char) => char !== ' ')
 
 async () => {
-  for await (const characters of noSpace) {
+  for await (const characters of characters_without_spaces) {
     for (const character of characters) {
       console.log(character)
     }
@@ -74,45 +74,59 @@ async () => {
 
 // or
 
-forEach(noSpace, (character) => {
+characters_without_spaces.forEach((character) => {
   console.log(character)
 })
 ```
 
-## API Reference
+## BatchIterable Constructor
+It can take either a:
+- AsyncIterables of iterables
+- Iterable of iterable (useful for testing)
+- BatchIterable
 
-### iterableToBatchIterable
-Converts a synchronous iterable into a batchIterable.
+## Instance attributes 
 
-### asyncIterableToBatchIterable
-Converts an async iterable into a batchIterable.
+### iterable
+This is the attribute where the asyncIterable of iterables is stored
+
+## Instance methods
+
+### Symbol.asyncIterator
+It returns the asyncIterator belonging to `iterable`. So that you can use it in a for loop.
 
 ### drop
 Skips the first `n` elements of a batchIterable.
 
 ### every
-Checks if all elements in an batchIterable satisfy a condition.
+Checks if all elements in a batchIterable satisfy a condition.
 
 ### filter
-Filters elements of an batchIterable based on a predicate function.
+Filters elements of a batchIterable based on a predicate function.
 
 ### find
-Finds the first element in an batchIterable that satisfies a condition.
+Finds the first element in a batchIterable that satisfies a condition.
 
 ### flatMap
 Maps each element to a batchIterable and flattens the result.
 
 ### forEach
-Executes a provided function once for each element in an batchIterable.
+Executes a provided function once for each element in a batchIterable.
 
 ### map
-Applies a function to each element of an batchIterable.
+Applies a function to each element of a batchIterable.
 
 ### reduce
 Reduces an batchIterable to a single value using a reducer function.
 
 ### some
-Checks if at least one element in an batchIterable satisfies a condition.
+Checks if at least one element in a batchIterable satisfies a condition.
 
 ### take
-Takes the first `n` elements of an batchIterable.
+Takes the first `n` elements of a batchIterable.
+
+### toArray
+Returns a promise with an array that collect all elements of a batchIterable. It is useful mostly for testing purposes.
+
+### toAsyncIterable
+It flattens the asyncIterable of iterables in a single asyncIterable.

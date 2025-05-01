@@ -3,7 +3,7 @@ import assert from "node:assert"
 import { BatchIterable } from "../index.js"
 
 test("map applies a function to each element", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2, 3, 4, 5]])
   const double = (x) => x * 2
 
   const result = await array.map(double).toArray()
@@ -16,7 +16,7 @@ test("map applies a function to each element", async () => {
 })
 
 test("map uses index in callback to transform elements", async () => {
-  const array = new BatchIterable(["a", "b", "c"])
+  const array = new BatchIterable([["a"], ["b", "c"]])
   const result = await array.map((value, index) => `${value}${index}`).toArray()
 
   assert.deepStrictEqual(

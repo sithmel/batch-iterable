@@ -3,7 +3,7 @@ import assert from "node:assert"
 import { BatchIterable } from "../index.js"
 
 test("drop skips the first n elements", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2, 3 ], [4, 5]])
   const result = await array.drop(2).toArray()
 
   assert.deepStrictEqual(
@@ -14,7 +14,7 @@ test("drop skips the first n elements", async () => {
 })
 
 test("drop skips the first 0 elements", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2, 3 ], [4, 5]])
   const result = await array.drop(0).toArray()
 
   assert.deepStrictEqual(
@@ -25,7 +25,7 @@ test("drop skips the first 0 elements", async () => {
 })
 
 test("drop skips the first many elements", async () => {
-  const array = new BatchIterable([1, 2, 3, 4, 5])
+  const array = new BatchIterable([[1, 2, 3 ], [4, 5]])
   const result = await array.drop(10).toArray()
 
   assert.deepStrictEqual(result, [], "Dropped all elements")
