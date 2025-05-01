@@ -28,7 +28,7 @@ npm install batch-iterable
 Here are a few examples of how to use `batch-iterable`:
 
 ```javascript
-import BatchIterable from 'batch-iterable';
+import { BatchIterable } from 'batch-iterable';
 
 const total = new BatchIterable([[1, 2], [3, 4, 5]]);
   .map(x => x * 2) // [2, 4, 6, 8, 10]
@@ -40,7 +40,7 @@ This is an example on how generate and consume a batchIterable:
 
 ```javascript
 import fs from "fs"
-import BatchIterable from "batch-iterable"
+import { BatchIterable } from "batch-iterable"
 
 // This returns an iterable
 function* chunkToByte(chunk) {
