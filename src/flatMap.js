@@ -15,7 +15,11 @@ export default async function* flatMap(iterable, func) {
   function* syncFlatMap(iterable) {
     for (const item of iterable) {
       const result = func(item, index++)
-      if (typeof result === 'string') {throw new TypeError('flatMap: Iterator.prototype.flatMap called on non-object')}
+      if (typeof result === "string") {
+        throw new TypeError(
+          "flatMap: Iterator.prototype.flatMap called on non-object",
+        )
+      }
       if (result && typeof result === "object" && Symbol.iterator in result) {
         yield* result
       } else {

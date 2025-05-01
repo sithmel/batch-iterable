@@ -14,7 +14,7 @@ export default async function reduce(iterable, reducer, initialValue) {
     accumulator = initialValue
     for await (const batch of iterable) {
       for (const item of batch) {
-        accumulator = reducer(accumulator, item, index++);
+        accumulator = reducer(accumulator, item, index++)
       }
     }
   } else {
@@ -25,15 +25,15 @@ export default async function reduce(iterable, reducer, initialValue) {
           index++
         } else {
           // @ts-ignore
-          accumulator = reducer(accumulator, item, index++);
+          accumulator = reducer(accumulator, item, index++)
         }
       }
-    }  
+    }
   }
 
   if (accumulator === undefined) {
-    throw new TypeError('Reduce of empty iterable with no initial value')
+    throw new TypeError("Reduce of empty iterable with no initial value")
   }
   // @ts-ignore
-  return accumulator;
+  return accumulator
 }

@@ -29,10 +29,12 @@ test("flatMap with empty input", async () => {
 })
 
 test("flatMap with nested arrays", async () => {
-  const array = new BatchIterable([[
-    [1, 2],
-    [3, 4],
-  ]])
+  const array = new BatchIterable([
+    [
+      [1, 2],
+      [3, 4],
+    ],
+  ])
   const flatten = (x) => x
 
   const result = await array.flatMap(flatten).toArray()

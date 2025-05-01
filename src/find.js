@@ -5,13 +5,13 @@
  * @returns {Promise<T| undefined>}
  */
 export default async function find(iterable, predicate) {
-    let index = 0;
-    for await (const batch of iterable) {
-      for (const item of batch) {
-        if (predicate(item, index++)) {
-          return item
-        }
+  let index = 0
+  for await (const batch of iterable) {
+    for (const item of batch) {
+      if (predicate(item, index++)) {
+        return item
       }
     }
-    return undefined;
   }
+  return undefined
+}

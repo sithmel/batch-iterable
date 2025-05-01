@@ -14,11 +14,11 @@ import flatMap from "./flatMap.js"
 
 /**
  * @template T
- * 
+ *
  * @param {AsyncIterable<Iterable<T>> | Iterable<Iterable<T>>} iterable
  * @returns {AsyncIterable<Iterable<T>>}
  */
-async function * toAsyncIterable(iterable) {
+async function* toAsyncIterable(iterable) {
   for await (const item of iterable) {
     yield item
   }
@@ -28,7 +28,6 @@ async function * toAsyncIterable(iterable) {
  * @template T
  */
 class BatchIterable {
-
   /**
    * @param {AsyncIterable<Iterable<T>> | Iterable<Iterable<T>> | BatchIterable<T>} [_iterable]
    */
@@ -146,9 +145,9 @@ class BatchIterable {
   /**
    * @returns {AsyncIterable<T>}
    */
-  async *toAsyncIterable () {
+  async *toAsyncIterable() {
     for await (const batch of this.iterable) {
-      yield * batch
+      yield* batch
     }
   }
 }

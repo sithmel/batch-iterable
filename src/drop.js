@@ -10,19 +10,17 @@ export default async function* drop(iterable, count) {
    * @param {Iterable<T>} batch
    * @returns {Iterable<T>}
    */
-  function *  dropSync(batch) {
+  function* dropSync(batch) {
     for (const item of batch) {
       if (count > 0) {
-        count--;
-        continue;
+        count--
+        continue
       }
-      yield item;
+      yield item
     }
   }
 
   for await (const batch of iterable) {
-    yield dropSync(batch);
+    yield dropSync(batch)
   }
 }
-
-

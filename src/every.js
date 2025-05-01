@@ -5,13 +5,13 @@
  * @returns {Promise<boolean>}
  */
 export default async function every(iterable, predicate) {
-  let index = 0;
+  let index = 0
   for await (const batch of iterable) {
     for (const item of batch) {
       if (!predicate(item, index++)) {
-        return false;
+        return false
       }
     }
   }
-  return true;
+  return true
 }
