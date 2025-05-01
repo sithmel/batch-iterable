@@ -1,3 +1,4 @@
+// @ts-check
 import test from "node:test"
 import assert from "node:assert"
 import { BatchIterable } from "../index.js"
@@ -34,6 +35,19 @@ test("reduce without initialValue aggregates elements using a reducer function",
   assert.strictEqual(
     result,
     15,
+    "Reduced result should match expected output when no initialValue is provided",
+  )
+})
+
+test("reduce with initialValue using accumulator of diff type", async () => {
+  const array = new BatchIterable([[1, 2, 3, 4], [5]])
+  const concat = (acc, x) => [...acc, x]
+
+  const result = await array.reduce(concat, [])
+
+  assert.deepEqual(
+    result,
+    [1, 2, 3, 4, 5],
     "Reduced result should match expected output when no initialValue is provided",
   )
 })

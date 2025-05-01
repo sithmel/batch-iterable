@@ -45,14 +45,15 @@ declare class BatchIterable<T> {
    */
   forEach(func: (item: T, index: number) => void): Promise<void>
   /**
-   * @param {(acc: T, item: T, index: number) => T} func
-   * @param {T} [initialValue]
-   * @returns {Promise<T>}
+   * @template U
+   * @param {(acc: U, item: T, index: number) => U} func
+   * @param {U} [initialValue]
+   * @returns {Promise<U>}
    */
-  reduce(
-    func: (acc: T, item: T, index: number) => T,
-    initialValue?: T,
-  ): Promise<T>
+  reduce<U>(
+    func: (acc: U, item: T, index: number) => U,
+    initialValue?: U,
+  ): Promise<U>
   /**
    * @param {(item: T, index: number) => boolean} predicate
    * @returns {Promise<boolean>}

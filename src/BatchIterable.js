@@ -101,12 +101,13 @@ class BatchIterable {
   forEach(func) {
     return forEach(this.iterable, func)
   }
-  /**
-   * @param {(acc: T, item: T, index: number) => T} func
-   * @param {T} [initialValue]
-   * @returns {Promise<T>}
-   */
 
+  /**
+   * @template U
+   * @param {(acc: U, item: T, index: number) => U} func
+   * @param {U} [initialValue]
+   * @returns {Promise<U>}
+   */
   reduce(func, initialValue) {
     return reduce(this.iterable, func, initialValue)
   }
