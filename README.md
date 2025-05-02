@@ -66,19 +66,20 @@ const characters_without_spaces = new BatchIterable(characters).filter(
   (char) => char !== " ",
 )
 
-;async () => {
+const log = async () => {
   for await (const characters of characters_without_spaces) {
     for (const character of characters) {
       console.log(character)
     }
   }
+
+  // or
+
+  characters_without_spaces.forEach((character) => {
+    console.log(character)
+  })
 }
-
-// or
-
-characters_without_spaces.forEach((character) => {
-  console.log(character)
-})
+log()
 ```
 
 ## BatchIterable Constructor
@@ -148,3 +149,15 @@ Returns a promise with an array that collect all elements of a batchIterable. It
 ### toAsyncIterable
 
 It flattens the asyncIterable of iterables in a single asyncIterable.
+
+## GenericBatchIterable
+
+This is a version of BatchIterable where you can force the iterable to be of a consistent type.
+
+```typescript
+import { GenericBatchIterable } from "batch-iterable"
+
+class NumericBatchIterable extends GenericBatchIterable<number> {
+  ...
+}
+```

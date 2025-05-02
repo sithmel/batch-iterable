@@ -2,9 +2,9 @@
   "name": "batch-iterable",
   "version": "0.0.5",
   "description": "An abstraction to work with iterables of asyncIterables",
-  "main": "src/index.js",
+  "main": "./index.js",
   "type": "module",
-  "types": "types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
     "test": "node --test test/*.js",
     "types": "tsc",
