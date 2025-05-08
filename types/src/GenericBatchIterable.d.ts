@@ -77,6 +77,12 @@ declare class GenericBatchIterable<T> {
    * @returns {AsyncIterable<T>}
    */
   toAsyncIterable(): AsyncIterable<T>
+  /**
+   * Returns a general purpose batchiterable which is less strict in typing
+   * but lacks methods that requires the correct types to be enforced
+   * @returns {GenericBatchIterable<any>}
+   */
+  toBatchIterable(): GenericBatchIterable<any>
   [Symbol.asyncIterator](): AsyncIterator<Iterable<T>, any, any>
 }
 //# sourceMappingURL=GenericBatchIterable.d.ts.map

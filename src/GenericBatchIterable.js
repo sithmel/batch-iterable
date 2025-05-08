@@ -151,6 +151,15 @@ class GenericBatchIterable {
       yield* batch
     }
   }
+
+  /**
+   * Returns a general purpose batchiterable which is less strict in typing
+   * but lacks methods that requires the correct types to be enforced
+   * @returns {GenericBatchIterable<any>}
+   */
+  toBatchIterable() {
+    return new GenericBatchIterable(this.iterable)
+  }
 }
 
 export default GenericBatchIterable
