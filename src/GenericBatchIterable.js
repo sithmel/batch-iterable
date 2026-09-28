@@ -11,6 +11,7 @@ import some from "./some.js"
 import find from "./find.js"
 import toArray from "./toArray.js"
 import flatMap from "./flatMap.js"
+import asyncFlatMap from "./asyncFlatMap.js"
 
 /**
  * @template T
@@ -91,6 +92,15 @@ class GenericBatchIterable {
 
   flatMap(func) {
     this.iterable = flatMap(this.iterable, func)
+    return this
+  }
+  /**
+   * @param {(item: T, index: number) => Iterable<T> | T | AsyncIterable<Iterable<T>>} func
+   * @returns {this}
+   */
+
+  asyncFlatMap(func) {
+    this.iterable = asyncFlatMap(this.iterable, func)
     return this
   }
   /**
